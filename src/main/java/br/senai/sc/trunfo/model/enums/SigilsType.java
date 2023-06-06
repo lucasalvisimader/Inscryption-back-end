@@ -1,0 +1,31 @@
+package br.senai.sc.trunfo.model.enums;
+
+public enum SigilsType {
+    AIRBORNE,
+    AMORPHOUS,
+    ANTSPAWNER,
+    BEESWITHIN,
+    BIFURCATEDSTRIKE,
+    BONEKING,
+    BURROWER,
+    CORPSEEATER,
+    DAMBUILDER,
+    FECUNDITY,
+    FLEDGELING,
+    GUARDIAN,
+    HEFTY,
+    HOARDER,
+    LEADER,
+    LOOSETAIL,
+    MANYLIVES,
+    MIGHTYLEAP,
+    NONE,
+    SHARPQUILLS,
+    SPRINTER,
+    STINKY,
+    TOUCHOFDEATH,
+    TRIFURCATEDSTRIKE,
+    UNKILLABLE,
+    WATERBORNE,
+    WORTHYSACRIFICE
+}
