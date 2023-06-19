@@ -11,6 +11,7 @@ import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
@@ -42,14 +43,13 @@ public class S3Service {
 
     public void sendImage(MultipartFile image, Long idCard) {
         try {
-            String keyName = "image-trump-inscryption" + UUID.randomUUID();
+            String keyName = "image-trump-inscryption" + UUID.randomUUID() + ".png";
             // Criando o cliente Amazon S3 com as credenciais pré-cadastradas
             BasicAWSCredentials basicAWSCredentials = new BasicAWSCredentials(accessKey, secretKey);
             AmazonS3 amazonS3Client = new AmazonS3Client(basicAWSCredentials);
 
             amazonS3Client.putObject(new PutObjectRequest(BUCKET_NAME,
                     keyName, image.getInputStream(), null));
-
             Card card = cardService.list(idCard);
 
             ImageCardDTO imageCardDTO = new ImageCardDTO(keyName, card);
@@ -62,6 +62,7 @@ public class S3Service {
             throw new RuntimeException(e);
         }
     }
+
     public URL listImage(String bucketName, Long idCard) {
         try {
             BasicAWSCredentials basicAWSCredentials = new BasicAWSCredentials(accessKey, secretKey);
@@ -76,6 +77,8 @@ public class S3Service {
             }
         } catch (AmazonS3Exception e) {
             System.exit(0);
+        } catch (NullPointerException e) {
+            throw new RuntimeException(e);
         }
         System.out.println(url);
         return url;
