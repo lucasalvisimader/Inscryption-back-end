@@ -1,19 +1,17 @@
 package br.senai.sc.trunfo.model.dto;
 
-import jakarta.validation.constraints.NotEmpty;
 import br.senai.sc.trunfo.model.entity.Card;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import java.util.List;
 import lombok.Data;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class ImageCardDTO {
     @NotEmpty
-    private String name;
+    private String reference;
     @NotEmpty
-    private String password;
-    private List<Card> cards;
+    private Card card;
 }

@@ -2,7 +2,6 @@ package br.senai.sc.trunfo.controller;
 
 import br.senai.sc.trunfo.model.dto.CardUpdateDTO;
 import br.senai.sc.trunfo.model.enums.SigilsType;
-import br.senai.sc.trunfo.service.S3Service;
 import br.senai.sc.trunfo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,9 +14,6 @@ import br.senai.sc.trunfo.model.dto.CardDTO;
 import br.senai.sc.trunfo.model.entity.Card;
 import lombok.NoArgsConstructor;
 import jakarta.validation.Valid;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.net.URL;
 import java.util.List;
 
 @Controller
@@ -27,8 +23,6 @@ import java.util.List;
 public class CardController {
     private CardService cardService;
     private UserService userService;
-    private S3Service s3Service;
-
     @Autowired
     private void setCardService(CardService cardService) {
         this.cardService = cardService;
@@ -36,10 +30,6 @@ public class CardController {
     @Autowired
     private void setUserService(UserService userService) {
         this.userService = userService;
-    }
-    @Autowired
-    private void setS3Service(S3Service s3Service) {
-        this.s3Service = s3Service;
     }
 
     @PostMapping("/save")
@@ -83,16 +73,5 @@ public class CardController {
     @GetMapping("/getSigilsTypes")
     public ResponseEntity<SigilsType[]> getSigils() {
         return ResponseEntity.ok(cardService.getSigils());
-    }
-
-    @PostMapping("/sendImage")
-    public ResponseEntity<String> sendImage(@RequestParam("img") MultipartFile image) {
-        s3Service.sendImage(image);
-        return ResponseEntity.ok("Image uploaded successfully");
-    }
-
-    @GetMapping("/listImage/{bucketName}/{keyName}")
-    public ResponseEntity<URL> list(@PathVariable String bucketName, @PathVariable String keyName) {
-        return ResponseEntity.ok(s3Service.listImage(bucketName, keyName));
     }
 }
