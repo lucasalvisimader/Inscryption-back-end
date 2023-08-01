@@ -19,5 +19,6 @@
 #CMD ["java", "-jar", "trunfo.jar"]
 
 FROM openjdk:17
-COPY target/trunfo.jar /app.jar
+COPY target/Trunfo-0.0.1-SNAPSHOT.jar /app.jar
+EXPOSE 8083
 ENTRYPOINT ["java", "-jar", "/app.jar"]
