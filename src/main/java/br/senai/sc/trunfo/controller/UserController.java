@@ -53,10 +53,10 @@ public class UserController {
         return ResponseEntity.ok(userService.save(objectDTO));
     }
 
-    @GetMapping("/listLogin/{name}/{password}")
-    public ResponseEntity<User> listLogin(@PathVariable String name, @PathVariable String password) {
+    @GetMapping("/listLogin/{username}/{password}")
+    public ResponseEntity<User> listLogin(@PathVariable String username, @PathVariable String password) {
         try {
-            return ResponseEntity.ok(userService.listLogin(name, password));
+            return ResponseEntity.ok(userService.listLogin(username, password));
         } catch (NotFoundException e) {
             return ResponseEntity.ok().build();
         }

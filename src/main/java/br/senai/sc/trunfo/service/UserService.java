@@ -33,8 +33,8 @@ public class UserService implements ServiceGeneralized<User, UserDTO, Long> {
         return userRepository.findById(id).orElseThrow(() -> new NotFoundException("User Not Found"));
     }
 
-    public User listLogin(String name, String password) {
-        return userRepository.findByNameAndPassword(name, password).orElseThrow(() -> new NotFoundException("User Not Found"));
+    public User listLogin(String username, String password) {
+        return userRepository.findByUsernameAndPassword(username, password).orElseThrow(() -> new NotFoundException("User Not Found"));
     }
 
     public User update(Long id, UserUpdateDTO objectDTO) {
