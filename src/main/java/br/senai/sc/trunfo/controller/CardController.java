@@ -1,33 +1,39 @@
 package br.senai.sc.trunfo.controller;
 
+import br.senai.sc.trunfo.model.dto.CardDTO;
 import br.senai.sc.trunfo.model.dto.CardUpdateDTO;
+import br.senai.sc.trunfo.model.entity.Card;
+import br.senai.sc.trunfo.model.enums.ImageType;
 import br.senai.sc.trunfo.model.enums.SigilsType;
+import br.senai.sc.trunfo.service.CardService;
 import br.senai.sc.trunfo.service.UserService;
+import jakarta.validation.Valid;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.stereotype.Controller;
-import br.senai.sc.trunfo.model.enums.ImageType;
 import org.springframework.http.ResponseEntity;
-import br.senai.sc.trunfo.service.CardService;
-import br.senai.sc.trunfo.model.dto.CardDTO;
-import br.senai.sc.trunfo.model.entity.Card;
-import lombok.NoArgsConstructor;
-import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
-@CrossOrigin
+@CrossOrigin(
+        origins = "http://localhost:3000",
+        allowCredentials = "true"
+)
 @NoArgsConstructor
 @RequestMapping("/card")
 public class CardController {
     private CardService cardService;
     private UserService userService;
+
     @Autowired
     private void setCardService(CardService cardService) {
         this.cardService = cardService;
     }
+
     @Autowired
     private void setUserService(UserService userService) {
         this.userService = userService;

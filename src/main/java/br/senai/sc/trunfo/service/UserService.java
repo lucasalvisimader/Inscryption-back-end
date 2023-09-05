@@ -10,6 +10,7 @@ import br.senai.sc.trunfo.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ public class UserService implements ServiceGeneralized<User, UserDTO, Long> {
     public User save(UserDTO objectDTO) {
         User user = new User();
         BeanUtils.copyProperties(objectDTO, user);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -42,17 +45,13 @@ public class UserService implements ServiceGeneralized<User, UserDTO, Long> {
         return save(objectDTO);
     }
 
-    public List<User> listAll() {
-        return userRepository.findAll();
-    }
-
     @Override
     public User list(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new NotFoundException("User Not Found"));
     }
 
     public User listLogin(String username, String password) {
-        return userRepository.findByUsernameAndPassword(username, password).orElseThrow(() -> new NotFoundException("User Not Found"));
+        return userRepository.findByUsername(username);
     }
 
     public User update(Long id, UserUpdateDTO objectDTO) {

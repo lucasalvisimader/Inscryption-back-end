@@ -28,7 +28,7 @@ public class Filter extends OncePerRequestFilter {
             try {
                 String token = CookieUtil.getToken(request);
                 System.out.println(token);
-                User user = JWTUtil.getUsuario(token);
+                User user = JWTUtil.getUser(token);
                 response.addCookie(CookieUtil.gerarCookie(user));
                 Authentication authentication = new UsernamePasswordAuthenticationToken(
                         user.getUsername(), null, user.getAuthorities());

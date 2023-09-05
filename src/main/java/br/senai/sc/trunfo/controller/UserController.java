@@ -1,21 +1,27 @@
 package br.senai.sc.trunfo.controller;
 
-import br.senai.sc.trunfo.model.dto.UserUpdateDTO;
-import org.springframework.beans.factory.annotation.Autowired;
-import br.senai.sc.trunfo.model.dto.UserRankingUpdateDTO;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.stereotype.Controller;
-import org.springframework.http.ResponseEntity;
-import br.senai.sc.trunfo.service.UserService;
 import br.senai.sc.trunfo.model.dto.UserDTO;
+import br.senai.sc.trunfo.model.dto.UserRankingUpdateDTO;
+import br.senai.sc.trunfo.model.dto.UserUpdateDTO;
 import br.senai.sc.trunfo.model.entity.User;
+import br.senai.sc.trunfo.security.util.JWTUtil;
+import br.senai.sc.trunfo.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@CrossOrigin
+@CrossOrigin(
+        origins = "http://localhost:3000",
+        allowCredentials = "true"
+)
 @NoArgsConstructor
 @AllArgsConstructor
 @RequestMapping("/user")
@@ -37,15 +43,11 @@ public class UserController {
         return ResponseEntity.ok(userService.saveUser(objectDTO));
     }
 
-//    @PreAuthorize("permitAll()")
-//    @GetMapping("/listLogin/{username}/{password}")
-//    public ResponseEntity<User> listLogin(@PathVariable String username, @PathVariable String password) {
-//        try {
-//            return ResponseEntity.ok(userService.listLogin(username, password));
-//        } catch (NotFoundException e) {
-//            return ResponseEntity.ok().build();
-//        }
-//    }
+    @PreAuthorize("permitAll()")
+    @GetMapping("/getUser")
+    public ResponseEntity<User> listLogin(@NotNull HttpServletRequest request) {
+        return ResponseEntity.ok(JWTUtil.getUser(request));
+    }
 
     @PreAuthorize("isAuthenticated()")
     @PutMapping("/update/{id}")

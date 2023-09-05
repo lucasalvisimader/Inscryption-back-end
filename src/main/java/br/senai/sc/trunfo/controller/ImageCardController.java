@@ -8,11 +8,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.net.URL;
-import java.util.List;
 
 @Controller
-@CrossOrigin
+@CrossOrigin(
+        origins = "http://localhost:3000",
+        allowCredentials = "true"
+)
 @NoArgsConstructor
 @RequestMapping("/imageCard")
 public class ImageCardController {
