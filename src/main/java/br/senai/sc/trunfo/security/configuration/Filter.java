@@ -50,8 +50,10 @@ public class Filter extends OncePerRequestFilter {
 
     private boolean rotaPrivada(String url) {
         Set<String> rotasPrivadas = Set.of(
-                "/teste/admin",
-                "/teste/player"
+                "/user/update/**",
+                "/user/userRankingUpdate/**",
+                "/user/delete/**",
+                "/card/**"
         );
 
         return rotasPrivadas.contains(url);

@@ -1,31 +1,36 @@
 package br.senai.sc.trunfo.init;
 
-import br.senai.sc.trunfo.controller.CardController;
+import br.senai.sc.trunfo.controller.UserController;
 import br.senai.sc.trunfo.model.dto.CardDTO;
+import br.senai.sc.trunfo.model.dto.UserDTO;
 import br.senai.sc.trunfo.model.entity.Card;
 import br.senai.sc.trunfo.model.enums.ImageType;
 import br.senai.sc.trunfo.model.enums.SigilsType;
+import br.senai.sc.trunfo.repository.CardRepository;
 import br.senai.sc.trunfo.security.enums.Profile;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import br.senai.sc.trunfo.controller.UserController;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import br.senai.sc.trunfo.model.dto.UserDTO;
+
 import java.util.List;
 
 @Component
 public class StartUpComponent implements CommandLineRunner {
-    private CardController cardController;
+    private CardRepository cardRepository;
     private UserController userController;
+
     @Autowired
-    private void setCardController(CardController cardController) {
-        this.cardController = cardController;
+    private void setCardRepository(CardRepository cardRepository) {
+        this.cardRepository = cardRepository;
     }
+
     @Autowired
     private void setUserController(UserController userController) {
         this.userController = userController;
     }
+
     @Value("${global.admin.username}")
     private String adminUsername;
     @Value("${global.admin.password}")
@@ -33,7 +38,7 @@ public class StartUpComponent implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        if (!(userController.listLogin(adminUsername, adminPassword).hasBody())) {
+        if (cardRepository.findAll().isEmpty()) {
             saveCardInit(new CardDTO("SQUIRREL", 0, 1, List.of(SigilsType.NONE), ImageType.SQUIRREL));
             saveCardInit(new CardDTO("STOAT", 1, 3, List.of(SigilsType.NONE), ImageType.STOAT));
             saveCardInit(new CardDTO("STINKBUG", 1, 2, List.of(SigilsType.STINKY), ImageType.STINKBUG));
@@ -98,11 +103,13 @@ public class StartUpComponent implements CommandLineRunner {
         }
     }
 
-    private void saveCardInit(CardDTO cardDTO) {
-        cardController.save(cardDTO);
+    private void saveCardInit(CardDTO objectDTO) {
+        Card card = new Card();
+        BeanUtils.copyProperties(objectDTO, card);
+        cardRepository.save(card);
     }
 
-    private void saveUserInit(UserDTO userDTO) {
-        userController.saveAdmin(userDTO);
+    private void saveUserInit(UserDTO objectDTO) {
+        userController.saveAdmin(objectDTO);
     }
 }

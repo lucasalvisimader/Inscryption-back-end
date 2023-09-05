@@ -4,18 +4,16 @@ import br.senai.sc.trunfo.model.dto.UserDTO;
 import br.senai.sc.trunfo.model.dto.UserRankingUpdateDTO;
 import br.senai.sc.trunfo.model.dto.UserUpdateDTO;
 import br.senai.sc.trunfo.model.entity.Card;
+import br.senai.sc.trunfo.model.entity.User;
 import br.senai.sc.trunfo.model.exception.NotFoundException;
 import br.senai.sc.trunfo.repository.UserRepository;
-import br.senai.sc.trunfo.security.enums.Profile;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import br.senai.sc.trunfo.model.entity.User;
-import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor

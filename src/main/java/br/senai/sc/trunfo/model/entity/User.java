@@ -32,8 +32,8 @@ public class User implements UserDetails {
     private Integer energy = 6; // max 6(reposto a cada turno)
     @ManyToMany
     @JoinColumn(name = "id_player")
-
     private List<Card> cards;
+
     private List<Profile> authorities;
     private boolean isAccountNonExpired;
     private boolean isAccountNonLocked;
