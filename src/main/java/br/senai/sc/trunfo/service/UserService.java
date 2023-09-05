@@ -3,12 +3,17 @@ package br.senai.sc.trunfo.service;
 import br.senai.sc.trunfo.model.dto.UserDTO;
 import br.senai.sc.trunfo.model.dto.UserRankingUpdateDTO;
 import br.senai.sc.trunfo.model.dto.UserUpdateDTO;
+import br.senai.sc.trunfo.model.entity.Card;
 import br.senai.sc.trunfo.model.exception.NotFoundException;
 import br.senai.sc.trunfo.repository.UserRepository;
+import br.senai.sc.trunfo.security.enums.Profile;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.senai.sc.trunfo.model.entity.User;
 import lombok.AllArgsConstructor;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,12 +21,27 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserService implements ServiceGeneralized<User, UserDTO, Long> {
     private final UserRepository userRepository;
+    private CardService cardService;
+
+    @Autowired
+    private void setCardService(CardService cardService) {
+        this.cardService = cardService;
+    }
 
     @Override
     public User save(UserDTO objectDTO) {
         User user = new User();
         BeanUtils.copyProperties(objectDTO, user);
         return userRepository.save(user);
+    }
+
+    public User saveUser(UserDTO objectDTO) {
+        List<Card> cards = new ArrayList<>();
+        for (long i = 1L; i <= 6L; i++) {
+            cards.add(cardService.list(i));
+        }
+        objectDTO.setCards(cards);
+        return save(objectDTO);
     }
 
     public List<User> listAll() {

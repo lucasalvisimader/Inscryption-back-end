@@ -2,6 +2,7 @@ package br.senai.sc.trunfo.controller;
 
 import br.senai.sc.trunfo.model.dto.UserUpdateDTO;
 import br.senai.sc.trunfo.model.entity.Card;
+import br.senai.sc.trunfo.security.enums.Profile;
 import br.senai.sc.trunfo.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import br.senai.sc.trunfo.model.exception.NotFoundException;
@@ -27,15 +28,10 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     private UserService userService;
-    private CardService cardService;
 
     @Autowired
     private void setUserService(UserService userService) {
         this.userService = userService;
-    }
-    @Autowired
-    private void setCardService(CardService cardService) {
-        this.cardService = cardService;
     }
 
     @PostMapping("/saveAdmin")
@@ -45,12 +41,7 @@ public class UserController {
 
     @PostMapping("/save")
     public ResponseEntity<User> save(@RequestBody @Valid UserDTO objectDTO) {
-        List<Card> cards = new ArrayList<>();
-        for (long i = 1L; i <= 6L; i++) {
-            cards.add(cardService.list(i));
-        }
-        objectDTO.setCards(cards);
-        return ResponseEntity.ok(userService.save(objectDTO));
+        return ResponseEntity.ok(userService.saveUser(objectDTO));
     }
 
     @GetMapping("/listLogin/{username}/{password}")

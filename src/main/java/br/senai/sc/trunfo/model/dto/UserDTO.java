@@ -1,5 +1,6 @@
 package br.senai.sc.trunfo.model.dto;
 
+import br.senai.sc.trunfo.security.enums.Profile;
 import jakarta.validation.constraints.NotEmpty;
 import br.senai.sc.trunfo.model.entity.Card;
 import lombok.AllArgsConstructor;
@@ -16,4 +17,5 @@ public class UserDTO {
     @NotEmpty
     private String password;
     private List<Card> cards;
+    private List<Profile> authorities;
 }
