@@ -7,6 +7,7 @@ import br.senai.sc.trunfo.model.entity.Card;
 import br.senai.sc.trunfo.model.entity.User;
 import br.senai.sc.trunfo.model.exception.NotFoundException;
 import br.senai.sc.trunfo.repository.UserRepository;
+import br.senai.sc.trunfo.security.enums.Profile;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class UserService implements ServiceGeneralized<User, UserDTO, Long> {
         BeanUtils.copyProperties(objectDTO, user);
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
+        user.setAuthorities(List.of(Profile.ADMIN));
         return userRepository.save(user);
     }
 
@@ -42,7 +44,13 @@ public class UserService implements ServiceGeneralized<User, UserDTO, Long> {
             cards.add(cardService.list(i));
         }
         objectDTO.setCards(cards);
-        return save(objectDTO);
+
+        User user = new User();
+        BeanUtils.copyProperties(objectDTO, user);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
+        user.setAuthorities(List.of(Profile.PLAYER));
+        return userRepository.save(user);
     }
 
     @Override

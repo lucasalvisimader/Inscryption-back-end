@@ -7,7 +7,6 @@ import br.senai.sc.trunfo.model.entity.Card;
 import br.senai.sc.trunfo.model.enums.ImageType;
 import br.senai.sc.trunfo.model.enums.SigilsType;
 import br.senai.sc.trunfo.repository.CardRepository;
-import br.senai.sc.trunfo.security.enums.Profile;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -99,7 +98,7 @@ public class StartUpComponent implements CommandLineRunner {
             saveCardInit(new CardDTO("CAT", 0, 1, List.of(SigilsType.MANYLIVES), ImageType.CAT));
             saveCardInit(new CardDTO("UNDEAD CAT", 3, 6, List.of(SigilsType.NONE), ImageType.UNDEADCAT));
             saveCardInit(new CardDTO("MOLE", 0, 4, List.of(SigilsType.BURROWER), ImageType.MOLE));
-            saveUserInit(new UserDTO(adminUsername, adminPassword, null, List.of(Profile.ADMIN)));
+            saveUserInit(new UserDTO(adminUsername, adminPassword, null));
         }
     }
 
