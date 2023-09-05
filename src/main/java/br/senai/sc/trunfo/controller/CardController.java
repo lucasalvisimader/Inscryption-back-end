@@ -5,6 +5,7 @@ import br.senai.sc.trunfo.model.enums.SigilsType;
 import br.senai.sc.trunfo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import br.senai.sc.trunfo.model.enums.ImageType;
@@ -32,44 +33,51 @@ public class CardController {
         this.userService = userService;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/save")
     public ResponseEntity<Card> save(@RequestBody @Valid CardDTO objectDTO) {
         return ResponseEntity.ok(cardService.save(objectDTO));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/listAll")
     public ResponseEntity<Page<Card>> listAll(@RequestParam int page) {
         return ResponseEntity.ok(cardService.listAll(page, 12));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/list/{id}")
     public ResponseEntity<Card> list(@PathVariable Long id) {
         return ResponseEntity.ok(cardService.list(id));
     }
 
-
+    @PreAuthorize("hasAuthority('PLAYER')")
     @GetMapping("/listFromUser/{name}/{password}")
     public ResponseEntity<List<Card>> listFromUser(@PathVariable String name, @PathVariable String password) {
         List<Card> cards = userService.listLogin(name, password).getCards();
         return ResponseEntity.ok(cards);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/update/{id}")
     public ResponseEntity<Card> update(@PathVariable Long id, @RequestBody @Valid CardUpdateDTO objectDTO) {
         return ResponseEntity.ok(cardService.update(id, objectDTO));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         cardService.delete(id);
         return ResponseEntity.ok().build();
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/getImageTypes")
     public ResponseEntity<ImageType[]> getImages() {
         return ResponseEntity.ok(cardService.getImages());
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/getSigilsTypes")
     public ResponseEntity<SigilsType[]> getSigils() {
         return ResponseEntity.ok(cardService.getSigils());

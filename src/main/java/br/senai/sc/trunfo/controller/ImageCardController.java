@@ -4,6 +4,7 @@ import br.senai.sc.trunfo.service.S3Service;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,12 +23,14 @@ public class ImageCardController {
         this.s3Service = s3Service;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/sendImage/{idCard}")
     public ResponseEntity<String> sendImage(@RequestParam("img") MultipartFile image, @PathVariable Long idCard) {
         s3Service.sendImage(image, idCard);
         return ResponseEntity.ok("Image uploaded successfully");
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/listImage/{bucketName}/{idCard}")
     public ResponseEntity<URL> list(@PathVariable String bucketName, @PathVariable Long idCard) {
         return ResponseEntity.ok(s3Service.listImage(bucketName, idCard));

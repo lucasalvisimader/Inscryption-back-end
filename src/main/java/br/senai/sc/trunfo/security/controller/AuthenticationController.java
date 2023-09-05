@@ -1,6 +1,9 @@
 package br.senai.sc.trunfo.security.controller;
 
+import br.senai.sc.trunfo.model.entity.User;
 import br.senai.sc.trunfo.security.model.Login;
+import br.senai.sc.trunfo.security.util.CookieUtil;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +29,14 @@ public class AuthenticationController {
     public ResponseEntity<?> login(@RequestBody Login login,
                                    HttpServletRequest request,
                                    HttpServletResponse response) {
-        SecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword());
+        UsernamePasswordAuthenticationToken token =
+                new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword());
 
         Authentication authentication = authenticationManager.authenticate(token);
         if (authentication.isAuthenticated()) {
-            SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-            securityContext.setAuthentication(authentication);
-//            SecurityContextHolder.setContext(securityContext);
-            securityContextRepository.saveContext(securityContext, request, response);
+            User user = (User) authentication.getPrincipal();
+            Cookie cookie = CookieUtil.gerarCookie(user);
+            response.addCookie(cookie);
             return ResponseEntity.ok(authentication.getPrincipal());
         }
         return ResponseEntity.status(401).build();
