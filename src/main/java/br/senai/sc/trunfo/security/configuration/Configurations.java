@@ -1,10 +1,12 @@
 package br.senai.sc.trunfo.security.configuration;
 
+import br.senai.sc.trunfo.security.enums.Profile;
 import br.senai.sc.trunfo.security.service.JpaService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -13,6 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -21,7 +24,11 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
+import static br.senai.sc.trunfo.security.enums.Profile.ADMIN;
+import static br.senai.sc.trunfo.security.enums.Profile.PLAYER;
 
 @Configuration
 @EnableWebSecurity
@@ -42,9 +49,19 @@ public class Configurations {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(auth -> auth
+                .requestMatchers(HttpMethod.POST, "/user/login").permitAll()
+                .requestMatchers(HttpMethod.POST, "/user/save").permitAll()
+                .requestMatchers(HttpMethod.GET, "/user/getUser").permitAll()
+                .requestMatchers(HttpMethod.PUT, "/user/update/**").hasAuthority(PLAYER.getAuthority())
+                .requestMatchers(HttpMethod.DELETE, "/user/delete/**").hasAuthority(PLAYER.getAuthority())
+                .requestMatchers(HttpMethod.PUT, "/card/listFromUser/**").hasAuthority(PLAYER.getAuthority())
+                .anyRequest().hasAuthority(ADMIN.getAuthority()));
+
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(new Filter(), UsernamePasswordAuthenticationFilter.class);
         http.csrf(AbstractHttpConfigurer::disable);
+        http.cors(cors -> corsConfigurationSource());
 
         return http.build();
     }
@@ -54,7 +71,8 @@ public class Configurations {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-        configuration.setAllowCredentials(true);    configuration.addAllowedHeader("*");
+        configuration.setAllowCredentials(true);
+        configuration.addAllowedHeader("*");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

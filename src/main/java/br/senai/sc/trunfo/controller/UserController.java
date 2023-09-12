@@ -37,31 +37,31 @@ public class UserController {
         ResponseEntity.ok(userService.save(objectDTO));
     }
 
-    @PreAuthorize("permitAll()")
+//    @PreAuthorize("permitAll()")
     @PostMapping("/save")
     public ResponseEntity<User> save(@RequestBody @Valid UserDTO objectDTO) {
         return ResponseEntity.ok(userService.saveUser(objectDTO));
     }
 
-    @PreAuthorize("permitAll()")
+//    @PreAuthorize("permitAll()")
     @GetMapping("/getUser")
     public ResponseEntity<User> listLogin(@NotNull HttpServletRequest request) {
         return ResponseEntity.ok(JWTUtil.getUser(request));
     }
 
-    @PreAuthorize("isAuthenticated()")
+//    @PreAuthorize("isAuthenticated()")
     @PutMapping("/update/{id}")
     public ResponseEntity<User> update(@PathVariable Long id, @RequestBody @Valid UserUpdateDTO objectDTO) {
         return ResponseEntity.ok(userService.update(id, objectDTO));
     }
 
-    @PreAuthorize("hasAuthority('PLAYER')")
+//    @PreAuthorize("hasAuthority('PLAYER')")
     @PutMapping("/userRankingUpdate/{id}")
     public ResponseEntity<User> update(@PathVariable Long id, @RequestBody @Valid UserRankingUpdateDTO objectDTO) {
         return ResponseEntity.ok(userService.update(id, objectDTO));
     }
 
-    @PreAuthorize("hasAuthority('PLAYER')")
+//    @PreAuthorize("hasAuthority('PLAYER')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         userService.delete(id);
