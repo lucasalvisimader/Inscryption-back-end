@@ -34,6 +34,7 @@ public class User implements UserDetails {
     @JoinColumn(name = "id_player")
     private List<Card> cards;
 
+    @Enumerated(EnumType.STRING)
     private List<Profile> authorities;
     private boolean isAccountNonExpired;
     private boolean isAccountNonLocked;
