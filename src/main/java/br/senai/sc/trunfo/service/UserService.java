@@ -11,16 +11,11 @@ import br.senai.sc.trunfo.security.enums.Profile;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static br.senai.sc.trunfo.security.enums.Profile.ADMIN;
 import static br.senai.sc.trunfo.security.enums.Profile.PLAYER;
@@ -47,14 +42,15 @@ public class UserService implements ServiceGeneralized<User, UserDTO, Long> {
             cards.add(cardService.list(i));
         }
         objectDTO.setCards(cards);
-
         return getUser(objectDTO, PLAYER);
     }
 
     private User getUser(UserDTO objectDTO, Profile profile) {
         User user = new User();
-        BeanUtils.copyProperties(objectDTO, user);
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setUsername(objectDTO.getUsername());
+        user.setPassword(objectDTO.getPassword());
+        user.setCards(objectDTO.getCards());
         user.setPassword(encoder.encode(user.getPassword()));
         user.setAuthorities(List.of(profile));
         return userRepository.save(user);

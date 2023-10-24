@@ -1,12 +1,17 @@
 package br.senai.sc.trunfo.model.dto;
 
-import br.senai.sc.trunfo.model.enums.SigilsType;
 import br.senai.sc.trunfo.model.enums.ImageType;
-import jakarta.validation.constraints.*;
+import br.senai.sc.trunfo.model.enums.PriceType;
+import br.senai.sc.trunfo.model.enums.SigilsType;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import java.util.List;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -24,4 +29,6 @@ public class CardDTO {
     private List<SigilsType> sigilsTypes;
     @NotNull
     private ImageType imageType;
+    @NotNull
+    private PriceType priceType;
 }

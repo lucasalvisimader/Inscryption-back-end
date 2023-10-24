@@ -1,12 +1,14 @@
 package br.senai.sc.trunfo.model.entity;
 
-import br.senai.sc.trunfo.model.enums.SigilsType;
 import br.senai.sc.trunfo.model.enums.ImageType;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import br.senai.sc.trunfo.model.enums.PriceType;
+import br.senai.sc.trunfo.model.enums.SigilsType;
 import jakarta.persistence.*;
-import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -22,4 +24,5 @@ public class Card {
     private Integer health;
     private List<SigilsType> sigilsTypes;
     private ImageType imageType;
+    private PriceType priceType;
 }
