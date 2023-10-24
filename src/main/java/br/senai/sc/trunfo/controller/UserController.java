@@ -34,7 +34,7 @@ public class UserController {
 
     @PostMapping("/save")
     public ResponseEntity<User> save(@RequestBody @Valid UserDTO objectDTO) {
-        return ResponseEntity.ok(userService.saveUser(objectDTO));
+        return ResponseEntity.ok(userService.save(objectDTO));
     }
 
     @GetMapping("/getUser")

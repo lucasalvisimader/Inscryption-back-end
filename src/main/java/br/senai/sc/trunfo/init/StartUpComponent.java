@@ -109,7 +109,7 @@ public class StartUpComponent implements CommandLineRunner {
             saveCardInit(new CardDTO("CAT", 0, 1, List.of(SigilsType.MANYLIVES), ImageType.CAT, PriceType.BLOOD1));
             saveCardInit(new CardDTO("UNDEAD CAT", 3, 6, List.of(SigilsType.NONE), ImageType.UNDEADCAT, PriceType.BLOOD1));
             saveCardInit(new CardDTO("MOLE", 0, 4, List.of(SigilsType.BURROWER), ImageType.MOLE, PriceType.BLOOD1));
-            saveUserInit(new UserDTO(adminUsername, adminPassword, null));
+            saveUserInit(new UserDTO(adminUsername, adminPassword));
         }
     }
 
