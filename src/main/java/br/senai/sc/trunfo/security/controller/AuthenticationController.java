@@ -1,6 +1,7 @@
 package br.senai.sc.trunfo.security.controller;
 
 import br.senai.sc.trunfo.model.entity.User;
+import br.senai.sc.trunfo.security.enums.Profile;
 import br.senai.sc.trunfo.security.model.Login;
 import br.senai.sc.trunfo.security.util.CookieUtil;
 import jakarta.servlet.http.Cookie;
@@ -37,10 +38,12 @@ public class AuthenticationController {
         Authentication authentication = authenticationManager.authenticate(token);
         if (authentication.isAuthenticated()) {
             User user = (User) authentication.getPrincipal();
-            Cookie cookie = CookieUtil.gerarCookie(user);
-            response.addCookie(cookie);
-            return ResponseEntity.ok(authentication.getPrincipal());
+            if (!user.getAuthorities().contains(Profile.ADMIN)) {
+                Cookie cookie = CookieUtil.gerarCookie(user);
+                response.addCookie(cookie);
+                return ResponseEntity.ok(authentication.getPrincipal());
+            }
         }
-        return ResponseEntity.status(401).build();
+        return ResponseEntity.status(403).build();
     }
 }
