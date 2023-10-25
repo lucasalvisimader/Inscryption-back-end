@@ -11,7 +11,7 @@ public class CookieUtil {
         String token = JWTUtil.gerarToken(user);
         Cookie cookie = new Cookie("JWT", token);
         cookie.setPath("/");
-        cookie.setMaxAge(1800);
+        cookie.setMaxAge(7200);
         return cookie;
     }
 

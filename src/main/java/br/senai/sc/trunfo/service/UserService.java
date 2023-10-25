@@ -42,7 +42,7 @@ public class UserService implements ServiceGeneralized<User, UserDTO, Long> {
         user.setPassword(encoder.encode(user.getPassword()));
         user.setAuthorities(List.of(PLAYER));
         List<Card> cards = new ArrayList<>();
-        for (long i = 1L; i <= 6L; i++) {
+        for (long i = 1L; i <= 5L; i++) {
             cards.add(cardService.list(i));
         }
         user.setCards(cards);

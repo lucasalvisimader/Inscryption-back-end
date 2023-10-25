@@ -27,7 +27,7 @@ public class JWTUtil {
                 .withIssuer("WEG") //Emissor
                 .withSubject(user.getUsername()) //Algum atributo de algum objeto que é seu identificador
                 .withIssuedAt(new Date()) //Data da emissão
-                .withExpiresAt(new Date(new Date().getTime() + 1800)) //Data da expiração
+                .withExpiresAt(new Date(new Date().getTime() + 7200)) //Data da expiração
                 .sign(algorithm);
     }
 

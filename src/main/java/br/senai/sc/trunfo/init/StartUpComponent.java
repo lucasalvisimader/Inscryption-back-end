@@ -48,12 +48,13 @@ public class StartUpComponent implements CommandLineRunner {
     @Override
     public void run(String... args) {
         if (userRepository.count() == 0) {
-            saveCardInit(new CardDTO("SQUIRREL", 0, 1, List.of(SigilsType.NONE), ImageType.SQUIRREL, PriceType.NONE));
             saveCardInit(new CardDTO("STOAT", 1, 3, List.of(SigilsType.NONE), ImageType.STOAT, PriceType.BLOOD1));
             saveCardInit(new CardDTO("STINKBUG", 1, 2, List.of(SigilsType.STINKY), ImageType.STINKBUG, PriceType.BONE2));
             saveCardInit(new CardDTO("STUNTED WOLF", 2, 2, List.of(SigilsType.NONE), ImageType.STUNTEDWOLF, PriceType.BLOOD1));
             saveCardInit(new CardDTO("WOLF", 3, 2, List.of(SigilsType.NONE), ImageType.WOLF, PriceType.BLOOD2));
             saveCardInit(new CardDTO("WOLF", 3, 2, List.of(SigilsType.NONE), ImageType.WOLF, PriceType.BLOOD2));
+            saveCardInit(new CardDTO("RIVER SNAPPER", 1, 6, List.of(SigilsType.NONE), ImageType.RIVERSNAPPER, PriceType.BLOOD2));
+            saveCardInit(new CardDTO("SQUIRREL", 0, 1, List.of(SigilsType.NONE), ImageType.SQUIRREL, PriceType.NONE));
             saveCardInit(new CardDTO("WOLF CUB", 1, 1, List.of(SigilsType.FLEDGELING), ImageType.WOLFCUB, PriceType.BLOOD1));
             saveCardInit(new CardDTO("COYOTE", 2, 1, List.of(SigilsType.NONE), ImageType.COYOTE, PriceType.BONE4));
             saveCardInit(new CardDTO("BLOODHOUND", 2, 3, List.of(SigilsType.GUARDIAN), ImageType.BLOODHOUND, PriceType.BLOOD2));
@@ -92,7 +93,6 @@ public class StartUpComponent implements CommandLineRunner {
             saveCardInit(new CardDTO("RATTLER", 3, 1, List.of(SigilsType.NONE), ImageType.RATTLER, PriceType.BONE6));
             saveCardInit(new CardDTO("ADDER", 1, 1, List.of(SigilsType.TOUCHOFDEATH), ImageType.ADDER, PriceType.BLOOD2));
             saveCardInit(new CardDTO("BULLFROG", 1, 2, List.of(SigilsType.MIGHTYLEAP), ImageType.BULLFROG, PriceType.BLOOD1));
-            saveCardInit(new CardDTO("RIVER SNAPPER", 1, 6, List.of(SigilsType.NONE), ImageType.RIVERSNAPPER, PriceType.BLOOD2));
             saveCardInit(new CardDTO("OUROBOROS", 1, 1, List.of(SigilsType.NONE), ImageType.OUROBOROS, PriceType.BLOOD2));
             saveCardInit(new CardDTO("PRONGHORN", 1, 3, List.of(SigilsType.SPRINTER, SigilsType.BIFURCATEDSTRIKE), ImageType.PRONGHORN, PriceType.BLOOD2));
             saveCardInit(new CardDTO("MOOSE BUCK", 3, 7, List.of(SigilsType.HEFTY), ImageType.MOOSEBUCK, PriceType.BLOOD3));

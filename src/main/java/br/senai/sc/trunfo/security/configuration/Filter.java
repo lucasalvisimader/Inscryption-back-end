@@ -9,25 +9,23 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Set;
 
 public class Filter extends OncePerRequestFilter {
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain)
+    protected void doFilterInternal(@NotNull HttpServletRequest request,
+                                    @NotNull HttpServletResponse response,
+                                    @NotNull FilterChain filterChain)
             throws ServletException, IOException {
-
         if (rotaPrivada(request.getRequestURI())) {
             try {
                 String token = CookieUtil.getToken(request);
-                System.out.println(token);
                 User user = JWTUtil.getUser(token);
                 response.addCookie(CookieUtil.gerarCookie(user));
                 Authentication authentication = new UsernamePasswordAuthenticationToken(
@@ -44,18 +42,13 @@ public class Filter extends OncePerRequestFilter {
                 return;
             }
         }
-
         filterChain.doFilter(request, response);
     }
 
     private boolean rotaPrivada(String url) {
-        Set<String> rotasPrivadas = Set.of(
-                "/user/update/**",
-                "/user/userRankingUpdate/**",
-                "/user/delete/**",
-                "/card/**"
-        );
-
-        return rotasPrivadas.contains(url);
+        return (url.startsWith("/user/update") ||
+                url.startsWith("/user/userRankingUpdate") ||
+                url.startsWith("/user/delete") ||
+                url.startsWith("/card"));
     }
 }

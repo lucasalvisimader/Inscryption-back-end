@@ -7,22 +7,20 @@ import br.senai.sc.trunfo.model.enums.ImageType;
 import br.senai.sc.trunfo.model.enums.SigilsType;
 import br.senai.sc.trunfo.service.CardService;
 import br.senai.sc.trunfo.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-@CrossOrigin(
-        origins = "http://localhost:3000",
-        allowCredentials = "true"
-)
+@CrossOrigin(origins = "*")
 @NoArgsConstructor
 @RequestMapping("/card")
 public class CardController {
@@ -54,10 +52,9 @@ public class CardController {
         return ResponseEntity.ok(cardService.list(id));
     }
 
-    @GetMapping("/listFromUser/{name}/{password}")
-    public ResponseEntity<List<Card>> listFromUser(@PathVariable String name, @PathVariable String password) {
-        List<Card> cards = userService.listLogin(name, password).getCards();
-        return ResponseEntity.ok(cards);
+    @GetMapping("/listFromUser")
+    public ResponseEntity<List<List<Card>>> listFromUser(@NotNull HttpServletRequest request) {
+        return ResponseEntity.ok(cardService.listFromUser(request));
     }
 
     @PutMapping("/update/{id}")
