@@ -49,6 +49,7 @@ public class Filter extends OncePerRequestFilter {
         return (url.startsWith("/user/update") ||
                 url.startsWith("/user/userRankingUpdate") ||
                 url.startsWith("/user/delete") ||
-                url.startsWith("/card"));
+                url.startsWith("/card") ||
+                url.startsWith("/board"));
     }
 }

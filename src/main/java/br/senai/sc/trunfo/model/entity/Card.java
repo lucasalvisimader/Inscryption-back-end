@@ -3,6 +3,7 @@ package br.senai.sc.trunfo.model.entity;
 import br.senai.sc.trunfo.model.enums.ImageType;
 import br.senai.sc.trunfo.model.enums.PriceType;
 import br.senai.sc.trunfo.model.enums.SigilsType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,5 +27,6 @@ public class Card {
     private ImageType imageType;
     private PriceType priceType;
     @ManyToMany(mappedBy = "cards")
+    @JsonIgnore
     private List<User> users;
 }
