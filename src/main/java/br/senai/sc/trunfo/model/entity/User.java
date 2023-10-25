@@ -1,5 +1,6 @@
 package br.senai.sc.trunfo.model.entity;
 
+import br.senai.sc.trunfo.model.enums.PhasesBoard;
 import br.senai.sc.trunfo.security.enums.Profile;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,7 @@ public class User implements UserDetails {
     @ManyToMany
     @JoinColumn(name = "id_player")
     private List<Card> cards;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Board board;
 
     @Enumerated(EnumType.STRING)
@@ -42,5 +43,7 @@ public class User implements UserDetails {
         this.isAccountNonLocked = true;
         this.isCredentialsNonExpired = true;
         this.isEnabled = true;
+        this.board = new Board();
+        this.board.setPhasesBoard(PhasesBoard.DEFAULT);
     }
 }

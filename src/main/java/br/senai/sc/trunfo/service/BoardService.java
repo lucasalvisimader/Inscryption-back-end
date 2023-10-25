@@ -8,7 +8,6 @@ import br.senai.sc.trunfo.model.exception.NotFoundException;
 import br.senai.sc.trunfo.repository.BoardRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,12 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 public class BoardService {
     private BoardRepository boardRepository;
-
-    public Board save(@Valid Object objectDTO) {
-        Board board = new Board();
-        BeanUtils.copyProperties(objectDTO, board);
-        return board;
-    }
 
     public Board list(Long id) {
         return boardRepository.findById(id).orElseThrow(() -> new NotFoundException("Board Not Found"));

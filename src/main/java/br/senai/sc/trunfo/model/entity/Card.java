@@ -27,6 +27,4 @@ public class Card {
     private PriceType priceType;
     @ManyToMany(mappedBy = "cards")
     private List<User> users;
-    @ManyToOne
-    private Board board;
 }

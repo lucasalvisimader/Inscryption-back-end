@@ -15,11 +15,6 @@ import org.springframework.web.bind.annotation.*;
 public class BoardController {
     private BoardService boardService;
 
-    @PostMapping("/save")
-    public ResponseEntity<Board> save(Object objectDTO) {
-        return ResponseEntity.ok(boardService.save(objectDTO));
-    }
-
     @GetMapping("/list/{id}")
     public ResponseEntity<Board> list(@PathVariable Long id) {
         return ResponseEntity.ok(boardService.list(id));

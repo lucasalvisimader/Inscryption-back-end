@@ -1,7 +1,6 @@
 package br.senai.sc.trunfo.model.entity;
 
 import br.senai.sc.trunfo.model.enums.PhasesBoard;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,11 +17,11 @@ public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @OneToMany
     private List<Card> playerCards;
+    @OneToMany
     private List<Card> enemyCards;
+    @OneToMany
     private List<Card> enemyUpComingCards;
     private PhasesBoard phasesBoard;
-    @OneToMany(mappedBy = "board")
-    @JsonIgnore
-    private List<Card> cards;
 }
