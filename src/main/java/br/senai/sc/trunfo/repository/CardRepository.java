@@ -5,8 +5,6 @@ import br.senai.sc.trunfo.model.enums.ImageType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-// http://hgm.nubati.net/rules/Capablanca.html
-
 @Repository
 public interface CardRepository extends JpaRepository<Card, Long> {
     Card findByImageType(ImageType imageType);

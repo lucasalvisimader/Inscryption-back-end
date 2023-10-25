@@ -1,17 +1,12 @@
 package br.senai.sc.trunfo.model.entity;
 
 import br.senai.sc.trunfo.security.enums.Profile;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
-
-import java.util.Collection;
-import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -27,12 +22,13 @@ public class User implements UserDetails {
     private Integer victories = 0;
     private Integer losses = 0;
     private Integer life = 2;
-    private Integer blood = 0; //max 99(reposto caso sacrifique uma carta
-    private Integer bone = 0; // max 99(reposto caso uma carta é morta)
-    private Integer energy = 6; // max 6(reposto a cada turno)
+    private Integer blood = 0; //max 4(reposto caso sacrifique uma carta
+    private Integer bone = 0; // max 10(reposto caso uma carta é morta)
     @ManyToMany
     @JoinColumn(name = "id_player")
     private List<Card> cards;
+    @OneToOne
+    private Board board;
 
     @Enumerated(EnumType.STRING)
     private List<Profile> authorities;

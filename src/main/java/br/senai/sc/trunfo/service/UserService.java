@@ -20,7 +20,7 @@ import static br.senai.sc.trunfo.security.enums.Profile.PLAYER;
 
 @Service
 @AllArgsConstructor
-public class UserService implements ServiceGeneralized<User, UserDTO, Long> {
+public class UserService {
     private final UserRepository userRepository;
     private CardService cardService;
 
@@ -29,7 +29,6 @@ public class UserService implements ServiceGeneralized<User, UserDTO, Long> {
         this.cardService = cardService;
     }
 
-    @Override
     public User save(UserDTO objectDTO) {
         return getUser(objectDTO);
     }
@@ -49,7 +48,6 @@ public class UserService implements ServiceGeneralized<User, UserDTO, Long> {
         return userRepository.save(user);
     }
 
-    @Override
     public User list(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new NotFoundException("User Not Found"));
     }
@@ -70,7 +68,6 @@ public class UserService implements ServiceGeneralized<User, UserDTO, Long> {
         return userRepository.save(user);
     }
 
-    @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
     }

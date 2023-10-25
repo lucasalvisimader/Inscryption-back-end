@@ -23,10 +23,9 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class CardService implements ServiceGeneralized<Card, CardDTO, Long> {
+public class CardService {
     private CardRepository cardRepository;
 
-    @Override
     public Card save(CardDTO objectDTO) {
         Card card = new Card();
         BeanUtils.copyProperties(objectDTO, card);
@@ -38,7 +37,6 @@ public class CardService implements ServiceGeneralized<Card, CardDTO, Long> {
         return cardRepository.findAll(pageable);
     }
 
-    @Override
     public Card list(Long id) {
         return cardRepository.findById(id).orElseThrow(() -> new NotFoundException("Card Not Found"));
     }
@@ -52,7 +50,7 @@ public class CardService implements ServiceGeneralized<Card, CardDTO, Long> {
         List<List<Card>> cards = new ArrayList<>();
 
         Collections.shuffle(cards);
-        
+
         List<Card> firstCards = grossCards.subList(0, 4);
         firstCards.add(listByName(ImageType.SQUIRREL));
         Collections.shuffle(firstCards);
@@ -80,7 +78,6 @@ public class CardService implements ServiceGeneralized<Card, CardDTO, Long> {
         return cardRepository.save(card);
     }
 
-    @Override
     public void delete(Long id) {
         cardRepository.deleteById(id);
     }

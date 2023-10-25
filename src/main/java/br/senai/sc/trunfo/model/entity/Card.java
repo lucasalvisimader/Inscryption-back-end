@@ -25,4 +25,8 @@ public class Card {
     private List<SigilsType> sigilsTypes;
     private ImageType imageType;
     private PriceType priceType;
+    @ManyToMany(mappedBy = "cards")
+    private List<User> users;
+    @ManyToOne
+    private Board board;
 }
