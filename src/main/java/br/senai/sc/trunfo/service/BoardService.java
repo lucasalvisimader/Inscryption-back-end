@@ -4,6 +4,7 @@ import br.senai.sc.trunfo.model.dto.CardPositionDTO;
 import br.senai.sc.trunfo.model.entity.Board;
 import br.senai.sc.trunfo.model.entity.Card;
 import br.senai.sc.trunfo.model.entity.User;
+import br.senai.sc.trunfo.model.enums.PhasesBoard;
 import br.senai.sc.trunfo.model.exception.InvalidPosition;
 import br.senai.sc.trunfo.repository.BoardRepository;
 import br.senai.sc.trunfo.security.util.JWTUtil;
@@ -25,8 +26,10 @@ public class BoardService {
         return user.getBoard();
     }
 
-    public Board getNewBoard() {
-        return null;
+    public Board getNewBoard(@NotNull HttpServletRequest request) {
+        User user = JWTUtil.getUser(request);
+        Board board = user.getBoard();
+        board.setPhasesBoard(PhasesBoard.values()[(int) (Math.random() * PhasesBoard.values().length)]);
     }
 
     public Board changePlayerCardPosition(@NotNull HttpServletRequest request, @Valid CardPositionDTO cardPositionDTO) {
