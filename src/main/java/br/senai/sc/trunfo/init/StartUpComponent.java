@@ -52,7 +52,6 @@ public class StartUpComponent implements CommandLineRunner {
             saveCardInit(new CardDTO("STINKBUG", 1, 2, List.of(SigilsType.STINKY), ImageType.STINKBUG, PriceType.BONE2));
             saveCardInit(new CardDTO("STUNTED WOLF", 2, 2, List.of(SigilsType.NONE), ImageType.STUNTEDWOLF, PriceType.BLOOD1));
             saveCardInit(new CardDTO("WOLF", 3, 2, List.of(SigilsType.NONE), ImageType.WOLF, PriceType.BLOOD2));
-            saveCardInit(new CardDTO("WOLF", 3, 2, List.of(SigilsType.NONE), ImageType.WOLF, PriceType.BLOOD2));
             saveCardInit(new CardDTO("RIVER SNAPPER", 1, 6, List.of(SigilsType.NONE), ImageType.RIVERSNAPPER, PriceType.BLOOD2));
             saveCardInit(new CardDTO("SQUIRREL", 0, 1, List.of(SigilsType.NONE), ImageType.SQUIRREL, PriceType.NONE));
             saveCardInit(new CardDTO("WOLF CUB", 1, 1, List.of(SigilsType.FLEDGELING), ImageType.WOLFCUB, PriceType.BLOOD1));

@@ -18,10 +18,10 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToMany
-    private List<Card> playerCards;
+    private List<CardBoardPosition> playerCards;
     @OneToMany
-    private List<Card> enemyCards;
+    private List<CardBoardPosition> enemyCards;
     @OneToMany
-    private List<Card> enemyUpComingCards;
+    private List<CardBoardPosition> enemyUpComingCards;
     private PhasesBoard phasesBoard;
 }

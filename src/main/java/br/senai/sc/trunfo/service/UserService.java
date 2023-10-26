@@ -41,8 +41,12 @@ public class UserService {
         user.setPassword(encoder.encode(user.getPassword()));
         user.setAuthorities(List.of(PLAYER));
         List<Card> cards = new ArrayList<>();
-        for (long i = 1L; i <= 5L; i++) {
-            cards.add(cardService.list(i));
+        for (long i = 1L; i < 6L; i++) {
+            Card card = cardService.list(i);
+            cards.add(card);
+            if (cardService.list(i).getName().equals("WOLF")) {
+                cards.add(card);
+            }
         }
         user.setCards(cards);
         return userRepository.save(user);
