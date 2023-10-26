@@ -26,6 +26,11 @@ public class BoardController {
         return ResponseEntity.ok(boardService.list(request));
     }
 
+    @PutMapping("/getNewBoard")
+    public ResponseEntity<Board> getNewBoard(@NotNull HttpServletRequest request) {
+        return ResponseEntity.ok(boardService.getNewBoard(request));
+    }
+
     @PutMapping("/changePlayerCardPosition")
     public ResponseEntity<Board> changePlayerCardPosition(@NotNull HttpServletRequest request, @RequestBody CardPositionDTO cardPositionDTO) {
         return ResponseEntity.ok(boardService.changePlayerCardPosition(request, cardPositionDTO));

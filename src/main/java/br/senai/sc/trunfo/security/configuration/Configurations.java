@@ -54,9 +54,8 @@ public class Configurations {
                 .requestMatchers(HttpMethod.PUT, "/user/update/**").authenticated()
                 .requestMatchers(HttpMethod.DELETE, "/user/delete/**").authenticated()
                 .requestMatchers(HttpMethod.GET, "/card/listFromUser").authenticated()
-                .requestMatchers(HttpMethod.GET, "/board/list").authenticated()
-                .requestMatchers(HttpMethod.PUT, "/board/changePlayerCardPosition").authenticated()
-                .requestMatchers(HttpMethod.PUT, "/board/endTurn").authenticated()
+                .requestMatchers(HttpMethod.GET, "/board/**").authenticated()
+                .requestMatchers(HttpMethod.PUT, "/board/**").authenticated()
                 .anyRequest().hasAuthority(ADMIN.getAuthority()));
 
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

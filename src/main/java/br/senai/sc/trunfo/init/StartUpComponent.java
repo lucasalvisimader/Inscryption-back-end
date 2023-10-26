@@ -109,6 +109,11 @@ public class StartUpComponent implements CommandLineRunner {
             saveCardInit(new CardDTO("CAT", 0, 1, List.of(SigilsType.MANYLIVES), ImageType.CAT, PriceType.BLOOD1));
             saveCardInit(new CardDTO("UNDEAD CAT", 3, 6, List.of(SigilsType.NONE), ImageType.UNDEADCAT, PriceType.BLOOD1));
             saveCardInit(new CardDTO("MOLE", 0, 4, List.of(SigilsType.BURROWER), ImageType.MOLE, PriceType.BLOOD1));
+            saveCardInit(new CardDTO("DAM", 0, 2, List.of(SigilsType.NONE), ImageType.DAM, PriceType.NONE));
+            saveCardInit(new CardDTO("BOULDER", 0, 5, List.of(SigilsType.NONE), ImageType.BOULDER, PriceType.NONE));
+            saveCardInit(new CardDTO("STUMP", 0, 3, List.of(SigilsType.NONE), ImageType.STUMP, PriceType.NONE));
+            saveCardInit(new CardDTO("GRANDFIR", 0, 4, List.of(SigilsType.MIGHTYLEAP), ImageType.GRANDFIR, PriceType.NONE));
+            saveCardInit(new CardDTO("SNOWYFIR", 0, 4, List.of(SigilsType.MIGHTYLEAP), ImageType.SNOWYFIR, PriceType.NONE));
             saveUserInit(new UserDTO(adminUsername, adminPassword));
         }
     }
