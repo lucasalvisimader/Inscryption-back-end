@@ -73,11 +73,15 @@ public class BoardService {
     private List<CardBoardPosition> mapPositions(List<ImageType> imageTypes, int beginHard, int size, User user) {
         List<CardBoardPosition> cardBoardPositions = new ArrayList<>();
         if (user.getCards().size() % 2 == 0) {
-            imageTypes.subList(0, beginHard);
+            imageTypes = imageTypes.subList(0, beginHard);
             size--;
         }
 
-        int quantitySizeCard = (user.getCards().size() / size) * 2;
+        int quantitySizeCard = (user.getCards().size() / (size * 2));
+
+        cardBoardPositionService.deleteAll(user.getBoard().getEnemyUpComingCards());
+        user.getBoard().setEnemyUpComingCards(null);
+        boardRepository.save(user.getBoard());
 
         for (int i = 0; i < (quantitySizeCard); i++) {
             for (ImageType imageType : imageTypes) {

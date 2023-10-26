@@ -34,4 +34,8 @@ public class CardBoardPositionService {
     public List<CardBoardPosition> listAll() {
         return cardBoardPositionRepository.findAll();
     }
+
+    public void deleteAll(List<CardBoardPosition> cardBoardPositions) {
+        cardBoardPositionRepository.deleteAllInBatch(cardBoardPositions);
+    }
 }
