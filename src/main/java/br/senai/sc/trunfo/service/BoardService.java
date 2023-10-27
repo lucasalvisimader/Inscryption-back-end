@@ -58,7 +58,7 @@ public class BoardService {
             case SWAMP -> mapPositions(
                     List.of(GECK, SKINK, ADDER, BULLFROG, RIVERSNAPPER,
                             GREATWHITE, AMOEBA, AMALGAM, RATTLER, MANTIS),
-                    6, 2, user);
+                    6, 3, user);
             case CAVERN -> mapPositions(
                     List.of(BAT, MOLE, MOLEMAN, FIELDMICE, WOLFCUB, ALPHA,
                             RABBIT, RATKING, MANTISGOD, COCKROACH),
