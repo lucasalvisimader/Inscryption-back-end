@@ -113,7 +113,6 @@ public class BoardService {
         return cardBoardPosition;
     }
 
-
     public Board endTurn(@NotNull HttpServletRequest request, @Valid List<CardBoardPositionDTO> cardBoardPositionDTOS) {
         User user = JWTUtil.getUser(request);
         Board board = user.getBoard();
