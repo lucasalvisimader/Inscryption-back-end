@@ -1,7 +1,6 @@
 package br.senai.sc.trunfo.service;
 
 import br.senai.sc.trunfo.model.dto.UserDTO;
-import br.senai.sc.trunfo.model.dto.UserRankingUpdateDTO;
 import br.senai.sc.trunfo.model.dto.UserUpdateDTO;
 import br.senai.sc.trunfo.model.entity.Card;
 import br.senai.sc.trunfo.model.entity.User;
@@ -61,12 +60,6 @@ public class UserService {
     }
 
     public User update(Long id, UserUpdateDTO objectDTO) {
-        User user = list(id);
-        BeanUtils.copyProperties(objectDTO, user);
-        return userRepository.save(user);
-    }
-
-    public User update(Long id, UserRankingUpdateDTO objectDTO) {
         User user = list(id);
         BeanUtils.copyProperties(objectDTO, user);
         return userRepository.save(user);

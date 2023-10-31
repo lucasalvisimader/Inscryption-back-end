@@ -1,8 +1,6 @@
 package br.senai.sc.trunfo.controller;
 
 import br.senai.sc.trunfo.model.dto.UserDTO;
-import br.senai.sc.trunfo.model.dto.UserRankingUpdateDTO;
-import br.senai.sc.trunfo.model.dto.UserUpdateDTO;
 import br.senai.sc.trunfo.model.entity.User;
 import br.senai.sc.trunfo.security.util.JWTUtil;
 import br.senai.sc.trunfo.service.UserService;
@@ -40,16 +38,6 @@ public class UserController {
     @GetMapping("/getUser")
     public ResponseEntity<User> listLogin(@NotNull HttpServletRequest request) {
         return ResponseEntity.ok(JWTUtil.getUser(request));
-    }
-
-    @PutMapping("/update/{id}")
-    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody @Valid UserUpdateDTO objectDTO) {
-        return ResponseEntity.ok(userService.update(id, objectDTO));
-    }
-
-    @PutMapping("/userRankingUpdate/{id}")
-    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody @Valid UserRankingUpdateDTO objectDTO) {
-        return ResponseEntity.ok(userService.update(id, objectDTO));
     }
 
     @DeleteMapping("/delete/{id}")

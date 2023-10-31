@@ -1,5 +1,6 @@
 package br.senai.sc.trunfo.controller;
 
+import br.senai.sc.trunfo.model.dto.CanPutCardOnBoardDTO;
 import br.senai.sc.trunfo.model.dto.CardBoardPositionDTO;
 import br.senai.sc.trunfo.model.entity.Board;
 import br.senai.sc.trunfo.service.BoardService;
@@ -28,13 +29,18 @@ public class BoardController {
         return ResponseEntity.ok(boardService.list(request));
     }
 
-    @PutMapping("/getNewBoard")
-    public ResponseEntity<Board> getNewBoard(@NotNull HttpServletRequest request) {
-        return ResponseEntity.ok(boardService.getNewBoard(request));
-    }
-
     @PutMapping("/endTurn")
     public ResponseEntity<Board> endTurn(@NotNull HttpServletRequest request, @RequestBody List<CardBoardPositionDTO> cardBoardPositionDTOS) {
         return ResponseEntity.ok(boardService.endTurn(request, cardBoardPositionDTOS));
+    }
+
+    @GetMapping("/canPutCardOnBoard")
+    public ResponseEntity<Boolean> canPutCardOnBoard(@RequestBody CanPutCardOnBoardDTO canPutCardOnBoardDTO) {
+        return ResponseEntity.ok(boardService.canPutCardOnBoard(canPutCardOnBoardDTO));
+    }
+
+    @PutMapping("/getNewBoard")
+    public ResponseEntity<Board> getNewBoard(@NotNull HttpServletRequest request) {
+        return ResponseEntity.ok(boardService.getNewBoard(request));
     }
 }
