@@ -42,11 +42,6 @@ public class CardController {
         return ResponseEntity.ok(cardService.save(objectDTO));
     }
 
-    @GetMapping("/listAll")
-    public ResponseEntity<Page<Card>> listAll(@RequestParam int page) {
-        return ResponseEntity.ok(cardService.listAll(page, 12));
-    }
-
     @GetMapping("/list/{id}")
     public ResponseEntity<Card> list(@PathVariable Long id) {
         return ResponseEntity.ok(cardService.list(id));
@@ -55,6 +50,16 @@ public class CardController {
     @GetMapping("/listFromUser")
     public ResponseEntity<List<List<Card>>> listFromUser(@NotNull HttpServletRequest request) {
         return ResponseEntity.ok(cardService.listFromUser(request));
+    }
+
+    @GetMapping("/listAll")
+    public ResponseEntity<Page<Card>> listAll(@RequestParam int page) {
+        return ResponseEntity.ok(cardService.listAll(page, 12));
+    }
+
+    @GetMapping("/qtyCost/{id}")
+    public ResponseEntity<Integer> qtyCost(@PathVariable Long id) {
+        return ResponseEntity.ok(cardService.qtyCost(id));
     }
 
     @PutMapping("/update/{id}")

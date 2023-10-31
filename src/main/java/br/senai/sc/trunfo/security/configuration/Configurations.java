@@ -54,6 +54,7 @@ public class Configurations {
                 .requestMatchers(HttpMethod.PUT, "/user/update/**").authenticated()
                 .requestMatchers(HttpMethod.DELETE, "/user/delete/**").authenticated()
                 .requestMatchers(HttpMethod.GET, "/card/listFromUser").authenticated()
+                .requestMatchers(HttpMethod.GET, "/card/qtyCost/**").authenticated()
                 .requestMatchers(HttpMethod.GET, "/board/**").authenticated()
                 .requestMatchers(HttpMethod.PUT, "/board/**").authenticated()
                 .anyRequest().hasAuthority(ADMIN.getAuthority()));

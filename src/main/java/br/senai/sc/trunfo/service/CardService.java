@@ -72,6 +72,11 @@ public class CardService {
         return squirrelCards;
     }
 
+    public Integer qtyCost(Long id) {
+        Card card = list(id);
+        return card.getPriceType().getType();
+    }
+
     public Card update(Long id, CardUpdateDTO objectDTO) {
         Card card = list(id);
         BeanUtils.copyProperties(objectDTO, card);
