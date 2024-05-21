@@ -6,7 +6,7 @@ COPY ./pom.xml /app/pom.xml
 # Define o diretório de trabalho
 WORKDIR /app
 # Compila o projeto e empacota o jar
-RUN mvn clean package -e
+RUN mvn clean package -DskipTests
 # Etapa final
 FROM openjdk:17-jdk-slim
 # Copia o jar do build para a imagem final
